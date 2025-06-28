@@ -100,10 +100,21 @@ const driverSchema = new mongoose.Schema({
   fare: { type: Number, required: true },
   startLocation: { type: String, required: true },
   destinationLocation: { type: String, required: true },
-  waypoints: {
-    type: { type: String, default: "LineString", required: true }, // Using LineString for routes
-    coordinates: { type: [[Number]], required: true }, // Array of arrays of coordinates [ [lng, lat], ... ]
-  },
+   waypoints: {
+    type: {
+      type: String,
+      enum: ['LineString'], // restrict to LineString
+      required: true,
+    },
+    coordinates: {
+      type: [[Number]],
+      required: true,
+    },
+  }
+  // waypoints: {
+  //   type: { type: String, default: "LineString", required: true }, // Using LineString for routes
+  //   coordinates: { type: [[Number]], required: true }, // Array of arrays of coordinates [ [lng, lat], ... ]
+  // },
 });
 
 // Create a 2dsphere index for the 'waypoints' field
