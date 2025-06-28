@@ -43,7 +43,7 @@ const port = process.env.PORT || 5000;
 //app.use(cors());
 //"http://localhost:5173"
 const corsOption = {
-  origin:[ process.env.FRONT_URL],
+  origin: process.env.FRONT_URL,
   methods:["GET","POST"],
   credentials: true,
 };
