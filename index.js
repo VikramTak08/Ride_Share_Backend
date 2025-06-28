@@ -125,6 +125,7 @@ const Driver = mongoose.model("Driver", driverSchema);
 //Save driver data in data in database
 app.post("/api/drivers/save-driver", async (req, res) => {
   try {
+    
     console.log("Received driver data:", req.body); // Log incoming data
     const newDriver = new Driver(req.body);
     const savedDriver = await newDriver.save();
@@ -135,6 +136,16 @@ app.post("/api/drivers/save-driver", async (req, res) => {
     res.status(400).json("Error: " + err.message);
   }
 });
+
+app.get("/test-db", async (req, res) => {
+  try {
+    await mongoose.connection.db.admin().ping();
+    res.send("✅ MongoDB connected!");
+  } catch (err) {
+    res.status(500).send("❌ MongoDB NOT connected: " + err.message);
+  }
+});
+
 
 app.post("/match-drivers", async (req, res) => {
   const { pickupCoords, destinationCoords } = req.body;
