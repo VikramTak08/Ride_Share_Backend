@@ -156,7 +156,7 @@ app.post("/match-drivers", async (req, res) => {
       waypoints: {
         $near: {
           $geometry: {
-            type: "LineString",
+            type: "Point",
             coordinates: pickupCoords,
           },
           $maxDistance: 2000,
