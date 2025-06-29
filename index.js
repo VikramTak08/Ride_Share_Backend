@@ -153,28 +153,28 @@ app.post("/match-drivers", async (req, res) => {
   try {
     // Step 1: Find drivers whose routes are near the rider's pickup location
 
-    const radiusInMeters = 2000;
-const earthRadiusInMeters = 6378137;
+//     const radiusInMeters = 2000;
+// const earthRadiusInMeters = 6378137;
     const driversNearPickup = await Driver.find({
 
 
+  //     waypoints: {
+  //   $geoWithin: {
+  //     $centerSphere: [
+  //       pickupCoords, // [lng, lat]
+  //       radiusInMeters / earthRadiusInMeters
+  //     ]
+  //   }
+  // }
       waypoints: {
-    $geoWithin: {
-      $centerSphere: [
-        pickupCoords, // [lng, lat]
-        radiusInMeters / earthRadiusInMeters
-      ]
-    }
-  }
-      // waypoints: {
-      //   $near: {
-      //     $geometry: {
-      //       type: "Point",
-      //       coordinates: pickupCoords,
-      //     },
-      //     $maxDistance: 2000,
-      //   },
-      // },
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: pickupCoords,
+          },
+          $maxDistance: 2000,
+        },
+      },
     });
 
     // Step 2: Filter drivers further by checking if their routes are also near the destination location
